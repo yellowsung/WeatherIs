@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<head>
+  <title>날씨어때</title>
+</head>
+<style>
+  @font-face {
+font-family: 'TAEBAEKmilkyway';
+src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/TAEBAEKmilkyway.woff2') format('woff2');
+font-weight: normal;
+font-style: normal;}
+ p,a,h1,h2,h3,h4,h5,h6{
+    transform: skew(-0.1deg);
+  }
+body{
+  font-family: 'TAEBAEKmilkyway';
+  text-align: center;
+}
+
+</style>
+
+<body>
+  <h1 style="background: linear-gradient(to right, #A7A3FF,#FFA7A3, #671cc4, #5673bd); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">오늘의 날씨<br></h1>
+  <h3><span style="border-radius: 5em; padding: 0.5em; background: #dcf1fb">오늘의 날씨를 물어보세요</span><br></h3>
+  <h5 class = "ctmep">현재 온도: </h3>
+  <h5 class = "mintmep">최저 온도: </h3>
+  <h5 class = "maxtmep">최고 온도: </h3>
+  <h5 class = "icon"></h3>
+
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+  <script>
+      $.getJSON('https://api.openweathermap.org/data/2.5/weather?lat=37.541&lon=126.986&appid=81d64b680ce7bf58d50e411b23c87875&units=metric', 
+          function(result){
+          $('.ctmep').append(result.main.temp);
+          $('.mintmep').append(result.main.temp_min);
+          $('.maxtmep').append(result.main.temp_max);
+          var wicounUrl = '<img src="https://openweathermap.org/img/wn/'+result.weather[0].icon+'.png" alt="'+result.weather[0].descirption+'">'
+          $('.icon').html( wicounUrl);
+          }
+      );   
+  </script>
+  <form action="/" method="POST">
+    <input type="text" name="question" placeholder="질문을 입력하세요." required />
+    <input type="submit" value="result" />
+  </form>
+  <div>
+    <p>답변 : {{ result }}</p>
+  </div>
+ 
+  
+
+</body>
+</html>
